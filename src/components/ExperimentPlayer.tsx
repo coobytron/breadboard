@@ -61,11 +61,10 @@ export function ExperimentPlayer({ experimentId, level }: ExperimentPlayerProps)
 
   const recordOutcome = (outcome: FinishedOutcome) => {
     let entryId = activeEntryId ?? findActiveEntry()?.id;
-    let startedNow: LabEntry | null = null;
 
     if (!entryId) {
-      startedNow = startEntry(experiment.id);
-      entryId = startedNow.id;
+      const entry = startEntry(experiment.id);
+      entryId = entry.id;
       setActiveEntryId(entryId);
     }
 
@@ -159,6 +158,10 @@ export function ExperimentPlayer({ experimentId, level }: ExperimentPlayerProps)
     );
   }
 
+  const cumulativePlacements = experiment.steps
+    .slice(0, progress.index + 1)
+    .flatMap((candidate) => candidate.placements);
+
   return (
     <section>
       <StepView
@@ -167,6 +170,7 @@ export function ExperimentPlayer({ experimentId, level }: ExperimentPlayerProps)
         level={level}
         stepNumber={progress.index + 1}
         stepCount={experiment.steps.length}
+        placements={cumulativePlacements}
       />
       <div className="levels" aria-label="Step controls">
         <button type="button" onClick={progress.back} disabled={progress.isFirst}>
