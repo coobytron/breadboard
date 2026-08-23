@@ -12,6 +12,12 @@ interface LeaderboardProps {
 type MeasurementMode = 'multimeter' | 'led-brightness';
 type ResistanceUnit = Extract<ExpectedRange['unit'], 'ohm' | 'kohm' | 'Mohm'>;
 
+interface RankedReading {
+  reading: ReadingWithGuess;
+  ohms?: number;
+  brightness?: number;
+}
+
 const MODE_KEY = 'breadboard-buddy:reading-mode';
 
 const copy = {
@@ -136,17 +142,20 @@ export function Leaderboard({ level }: LeaderboardProps) {
   const organic = organicsById.get(organicId) ?? organics[0];
 
   const ranked = useMemo(() => {
-    const comparable = readings
-      .filter((reading) => reading.method === mode)
-      .flatMap((reading) => {
-        if (reading.method === 'multimeter') {
-          if (reading.value == null || !isResistanceUnit(reading.unit)) return [];
-          return [{ reading, ohms: toOhms(reading.value, reading.unit) }];
-        }
-        return [{ reading, brightness: reading.brightness ?? 0 }];
-      });
+    const comparable: RankedReading[] = [];
 
-    return rankByConductivity(comparable);
+    for (const reading of readings) {
+      if (reading.method !== mode) continue;
+
+      if (reading.method === 'multimeter') {
+        if (reading.value == null || !isResistanceUnit(reading.unit)) continue;
+        comparable.push({ reading, ohms: toOhms(reading.value, reading.unit) });
+      } else {
+        comparable.push({ reading, brightness: reading.brightness ?? 0 });
+      }
+    }
+
+    return rankByConductivity<RankedReading>(comparable);
   }, [mode, readings]);
 
   if (!organic) return null;
