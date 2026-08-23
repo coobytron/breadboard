@@ -117,7 +117,7 @@ function feedbackFor(guess: GuessStrength, actual: GuessStrength): keyof typeof 
 function displayReading(reading: ReadingWithGuess): string {
   if (reading.method === 'led-brightness') return `${reading.brightness ?? 0}/5`;
   if (reading.value == null || !reading.unit) return '—';
-  const unit = reading.unit === 'kohm' ? 'kΩ' : reading.unit === 'Mohm' ? 'MΩ' : 'Ω';
+  const unit = reading.unit === 'kohm' ? 'kΩ' : reading.unit === 'Mohm' ? 'MΩ' : reading.unit;
   return `${reading.value} ${unit}`;
 }
 
@@ -270,7 +270,7 @@ export function Leaderboard({ level }: LeaderboardProps) {
           const item = organicsById.get(entry.reading.organicId);
           if (!item) return null;
           const actual = measuredStrength(entry.reading, entry.ohms);
-          const feedback = feedbackFor(entry.reading.guess, actual);
+          const feedback = entry.reading.guess ? feedbackFor(entry.reading.guess, actual) : null;
           const width = Math.max(25, 100 - (index * 75) / maxIndex);
           const expanded = expandedId === entry.reading.id;
 
@@ -287,7 +287,7 @@ export function Leaderboard({ level }: LeaderboardProps) {
               <div aria-hidden="true" style={{ height: '0.6rem', marginTop: '0.6rem', background: 'var(--surface-2)', borderRadius: '999px' }}>
                 <div style={{ width: `${width}%`, height: '100%', background: 'var(--accent)', borderRadius: '999px' }} />
               </div>
-              <p>{guessFeedback[feedback][level]}</p>
+              {feedback && <p>{guessFeedback[feedback][level]}</p>}
               {expanded && (
                 <div>
                   <strong>{copy.why[level]}</strong>
