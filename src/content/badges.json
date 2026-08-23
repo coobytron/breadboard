@@ -1,0 +1,90 @@
+[
+  {
+    "id": "first-light",
+    "name": "First Light",
+    "emoji": "💡",
+    "description": {
+      "explorer": "You made your first light shine!",
+      "builder": "You completed First Light and made an LED glow.",
+      "engineer": "You completed the First Light series LED circuit."
+    },
+    "criteria": { "type": "first-light" }
+  },
+  {
+    "id": "button-boss",
+    "name": "Button Boss",
+    "emoji": "🔘",
+    "description": {
+      "explorer": "You made a button control a light!",
+      "builder": "You completed the button-light experiment.",
+      "engineer": "You completed the pushbutton-controlled light circuit."
+    },
+    "criteria": { "type": "complete-experiment", "experimentId": "button-light" }
+  },
+  {
+    "id": "lemon-maker",
+    "name": "Lemon Maker",
+    "emoji": "🍋",
+    "description": {
+      "explorer": "You made electricity with a lemon!",
+      "builder": "You completed the lemon-battery experiment.",
+      "engineer": "You built and measured a zinc-copper fruit cell."
+    },
+    "criteria": { "type": "complete-experiment", "experimentId": "lemon-battery" }
+  },
+  {
+    "id": "basics-master",
+    "name": "Basics Master",
+    "emoji": "🧰",
+    "description": {
+      "explorer": "You built every starter experiment!",
+      "builder": "You completed the whole basics track.",
+      "engineer": "You completed every experiment in the basics track."
+    },
+    "criteria": { "type": "complete-track", "track": "basics" }
+  },
+  {
+    "id": "transistor-tamer",
+    "name": "Transistor Tamer",
+    "emoji": "🎛️",
+    "description": {
+      "explorer": "You finished all the tiny-helper builds!",
+      "builder": "You completed the transistor track.",
+      "engineer": "You completed every experiment in the transistor track."
+    },
+    "criteria": { "type": "complete-track", "track": "transistor" }
+  },
+  {
+    "id": "laser-captain",
+    "name": "Laser Captain",
+    "emoji": "🔴",
+    "description": {
+      "explorer": "A grown-up helped with this special badge.",
+      "builder": "You completed the laser track with the safety rules.",
+      "engineer": "You completed every experiment in the gated laser track."
+    },
+    "criteria": { "type": "complete-track", "track": "laser" }
+  },
+  {
+    "id": "fruit-master",
+    "name": "Fruit Master",
+    "emoji": "🥝",
+    "description": {
+      "explorer": "You finished all the squishy science!",
+      "builder": "You completed the whole Fruit Lab track.",
+      "engineer": "You completed every experiment in the fruit track."
+    },
+    "criteria": { "type": "complete-track", "track": "fruit" }
+  },
+  {
+    "id": "fruit-wrangler",
+    "name": "Fruit Wrangler",
+    "emoji": "🧪",
+    "description": {
+      "explorer": "You tested five different squishy things!",
+      "builder": "You measured five different organic materials.",
+      "engineer": "You recorded measurements for five distinct organic materials."
+    },
+    "criteria": { "type": "organics-measured", "count": 5 }
+  }
+]
