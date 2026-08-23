@@ -1,0 +1,101 @@
+{
+  "id": "lemon-battery",
+  "title": "The Lemon Battery",
+  "hook": {
+    "explorer": "Turn a lemon into a battery!",
+    "builder": "Make electricity out of a lemon, and find out why one lemon isn't enough.",
+    "engineer": "Build a zinc/copper fruit cell, measure it, and discover the difference between voltage and current the hard way."
+  },
+  "track": "fruit",
+  "order": 1,
+  "requires": [
+    { "partId": "lemon", "quantity": 4 },
+    { "partId": "galvanized-nail", "quantity": 4 },
+    { "partId": "copper-wire", "quantity": 4 },
+    { "partId": "alligator-clips", "quantity": 5 },
+    { "partId": "led-red", "quantity": 1 }
+  ],
+  "niceToHave": ["multimeter"],
+  "hazards": ["do-not-eat", "sharp"],
+  "minLevel": "explorer",
+  "estimatedMinutes": 25,
+  "steps": [
+    {
+      "instruction": {
+        "explorer": "Squeeze and roll the lemon on the table.",
+        "builder": "Roll each lemon hard under your hand first. This breaks up the juice inside and makes the battery work much better.",
+        "engineer": "Roll each lemon to rupture the juice vesicles. This lowers internal resistance noticeably - worth measuring before and after if you have a meter."
+      },
+      "placements": []
+    },
+    {
+      "instruction": {
+        "explorer": "A grown-up pushes in a silver nail and a copper wire.",
+        "builder": "Push a galvanized nail into one side of the lemon and a bare copper wire into the other. Keep them about 2cm apart and DON'T let them touch inside.",
+        "engineer": "Insert the zinc electrode and the copper electrode roughly 2cm apart. They must not touch - contact shorts the cell to zero."
+      },
+      "explanation": {
+        "explorer": "The lemon juice helps the two metals talk to each other.",
+        "builder": "The zinc nail gives little bits away and the copper takes them. The lemon juice is the road between them.",
+        "engineer": "Zinc oxidises more readily than copper. The electrode potential difference is the cell voltage; the acidic juice is the electrolyte carrying ions between them."
+      },
+      "placements": []
+    },
+    {
+      "instruction": {
+        "explorer": "Clip a wire on each metal bit.",
+        "builder": "Clip an alligator lead onto the nail and another onto the copper. If you have a multimeter, touch the probes to the two clips.",
+        "engineer": "Clip leads to both electrodes and measure open-circuit DC volts across them."
+      },
+      "placements": [],
+      "expect": {
+        "explorer": "The meter shows a number! Your lemon made electricity!",
+        "builder": "You should see about 0.9 volts. That's real electricity, made by a lemon.",
+        "engineer": "Expect 0.8-1.1V open-circuit. Note that the meter's high input impedance means you are drawing almost no current here - remember that."
+      }
+    },
+    {
+      "instruction": {
+        "explorer": "Try the light. It probably won't work yet!",
+        "builder": "Clip the lemon to your LED - long leg to the copper. It almost certainly won't light. That's not a mistake, that's the lesson.",
+        "engineer": "Connect a single cell to the red LED, anode to copper. It will not light: 0.9V is well below the LED's 2V forward voltage, and the cell's internal resistance is in the kilohms anyway."
+      },
+      "explanation": {
+        "explorer": "One lemon pushes hard, but only a tiny bit gets through.",
+        "builder": "The lemon can push quite hard (that's volts) but it can only push a tiny trickle at a time (that's current). The LED needs both.",
+        "engineer": "Voltage and current are independent. The lemon has respectable EMF but kilohms of internal resistance, so it can only source microamps - a couple of orders of magnitude short of what the LED needs."
+      },
+      "placements": []
+    },
+    {
+      "instruction": {
+        "explorer": "Now line up FOUR lemons in a row!",
+        "builder": "Make four lemon batteries. Now chain them: copper of the first to the nail of the second, copper of the second to the nail of the third, and so on. Then clip the two loose ends to the LED.",
+        "engineer": "Build four cells and connect them in series - copper of one to zinc of the next. Series stacking adds the voltages while the internal resistances also add."
+      },
+      "placements": [],
+      "expect": {
+        "explorer": "Take it in a dark closet. Can you see a tiny glow?",
+        "builder": "Turn the lights off and cup your hands around the LED. You should see a faint glow. Four lemons is just barely enough!",
+        "engineer": "Roughly 3.6V total. Take it somewhere dark - modern high-efficiency red LEDs are visible at tens of microamps. If nothing glows, add a fifth cell and re-roll the lemons."
+      }
+    }
+  ],
+  "bigIdea": {
+    "explorer": "A lemon can make electricity - but only a tiny bit.",
+    "builder": "Volts are how hard electricity pushes. Current is how much actually flows. A lemon has decent push but almost no flow, so you need to gang them up.",
+    "engineer": "A source has both an EMF and an internal resistance. The fruit cell has a usable EMF but such high internal resistance that it can only deliver microamps - which is why it can measure 0.9V on a meter and still fail to light anything."
+  },
+  "goFurther": [
+    {
+      "explorer": "Try a potato instead!",
+      "builder": "Swap the lemons for potatoes. Better or worse? Now try a BOILED potato.",
+      "engineer": "Compare lemon, raw potato and boiled potato cells. Boiling ruptures cell walls and drops internal resistance measurably."
+    },
+    {
+      "explorer": "What if the nails are close together?",
+      "builder": "Try moving the nail and copper closer together in the lemon. Does the voltage change? Does anything else?",
+      "engineer": "Vary electrode spacing. Open-circuit voltage should barely move (it's set by the metals) while internal resistance drops - a clean demonstration that they are separate properties."
+    }
+  ]
+}

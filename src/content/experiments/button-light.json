@@ -1,0 +1,79 @@
+{
+  "id": "button-light",
+  "title": "Push To Light",
+  "hook": {
+    "explorer": "Press the button, make the light go!",
+    "builder": "Add a button so you can turn your light on and off.",
+    "engineer": "Insert a momentary switch into the series loop and reason about where it has to go."
+  },
+  "track": "basics",
+  "order": 2,
+  "requires": [
+    { "partId": "breadboard", "quantity": 1 },
+    { "partId": "battery-9v", "quantity": 1 },
+    { "partId": "led-red", "quantity": 1 },
+    { "partId": "resistor-330", "quantity": 1 },
+    { "partId": "pushbutton", "quantity": 1 },
+    { "partId": "jumper-wires", "quantity": 3 }
+  ],
+  "hazards": ["battery-short", "small-parts"],
+  "minLevel": "explorer",
+  "estimatedMinutes": 10,
+  "steps": [
+    {
+      "instruction": {
+        "explorer": "Build First Light again first.",
+        "builder": "Start from your First Light circuit, but leave out the last wire to the black rail.",
+        "engineer": "Rebuild the First Light series loop, omitting the final return jumper."
+      },
+      "placements": [
+        { "partId": "jumper-wires", "holes": ["+top", "A5"] },
+        { "partId": "resistor-330", "holes": ["E5", "E10"], "label": "330Ω" },
+        { "partId": "led-red", "holes": ["A10", "A15"] }
+      ]
+    },
+    {
+      "instruction": {
+        "explorer": "Push the button in so it sits over the middle line.",
+        "builder": "Push the button into the board so its legs straddle the centre channel, at rows 18 and 20.",
+        "engineer": "Straddle the centre channel with the tactile switch - legs into F18/F20 and the mirrored pair. Straddling is what keeps the two internal pairs on separate nets."
+      },
+      "explanation": {
+        "explorer": "The button is a gate for the zap.",
+        "builder": "A button is just a gap in the wire that you close with your finger.",
+        "engineer": "The switch's two leg pairs are permanently joined within each pair; pressing bridges the pairs. Straddling the channel is essential, or you short a pair to itself and the button does nothing."
+      },
+      "placements": [
+        { "partId": "pushbutton", "holes": ["F18", "F20", "J18", "J20"] }
+      ]
+    },
+    {
+      "instruction": {
+        "explorer": "Two more wires, then press it!",
+        "builder": "Run one jumper from E15 to G18, and another from G20 to the black rail.",
+        "engineer": "Jumper row 15 to one side of the switch, and the other side to the negative bus."
+      },
+      "placements": [
+        { "partId": "jumper-wires", "holes": ["E15", "G18"] },
+        { "partId": "jumper-wires", "holes": ["G20", "-top"] }
+      ],
+      "expect": {
+        "explorer": "Press it! Light! Let go! Dark!",
+        "builder": "The LED lights only while you hold the button down.",
+        "engineer": "Momentary action - the loop is closed only while the switch is held."
+      }
+    }
+  ],
+  "bigIdea": {
+    "explorer": "A button opens and closes the circle.",
+    "builder": "A switch is just a controllable gap in the loop. It works anywhere in the loop, not just next to the light.",
+    "engineer": "In a series circuit the switch's position is electrically irrelevant - the same current flows everywhere. Position is a matter of convention and safety, not function."
+  },
+  "goFurther": [
+    {
+      "explorer": "Move the button somewhere else. Does it still work?",
+      "builder": "Try moving the button to the other side of the LED. Does it still work? Why?",
+      "engineer": "Move the switch between the battery and the resistor. Predict whether behaviour changes, then verify."
+    }
+  ]
+}

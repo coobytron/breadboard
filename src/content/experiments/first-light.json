@@ -1,0 +1,96 @@
+{
+  "id": "first-light",
+  "title": "First Light",
+  "hook": {
+    "explorer": "Make a tiny light turn on!",
+    "builder": "Build your very first circuit and light up an LED.",
+    "engineer": "Build a series LED circuit and work out why the resistor has to be there."
+  },
+  "track": "basics",
+  "order": 1,
+  "requires": [
+    { "partId": "breadboard", "quantity": 1 },
+    { "partId": "battery-9v", "quantity": 1 },
+    { "partId": "led-red", "quantity": 1 },
+    { "partId": "resistor-330", "quantity": 1 },
+    { "partId": "jumper-wires", "quantity": 2 }
+  ],
+  "hazards": ["battery-short", "small-parts"],
+  "minLevel": "explorer",
+  "estimatedMinutes": 10,
+  "steps": [
+    {
+      "instruction": {
+        "explorer": "Put the red wire in the red hole at the top.",
+        "builder": "Connect the battery's red wire to the top red rail, then run a jumper from the rail down to hole A5.",
+        "engineer": "Tie the 9V positive to the upper + bus, then jumper the bus to row 5 (A5)."
+      },
+      "placements": [{ "partId": "jumper-wires", "holes": ["+top", "A5"] }],
+      "expect": {
+        "explorer": "Nothing happens yet. That's okay!",
+        "builder": "Nothing lights up yet - the loop isn't finished.",
+        "engineer": "Open circuit so far. No current flows until the loop closes."
+      }
+    },
+    {
+      "instruction": {
+        "explorer": "Put the stripey brake in. It goes in two holes.",
+        "builder": "Push the 330Ω resistor into E5 and E10. It doesn't matter which way round it goes.",
+        "engineer": "Place the 330Ω limiting resistor between row 5 and row 10. Resistors have no polarity."
+      },
+      "explanation": {
+        "explorer": "The brake stops the light getting too much zap.",
+        "builder": "Without the brake, the light gets far too much electricity all at once and burns out - in about a second.",
+        "engineer": "The LED has no internal current limit. Its Vf pins at about 2V, so the resistor sets the current: (9 - 2) / 330 = 21mA."
+      },
+      "placements": [
+        { "partId": "resistor-330", "holes": ["E5", "E10"], "label": "330Ω" }
+      ]
+    },
+    {
+      "instruction": {
+        "explorer": "Put the light in. The LONG leg goes on top.",
+        "builder": "Push the LED's long leg into A10 and its short leg into A15. The long leg must be the one nearer the battery - LEDs only work one way round.",
+        "engineer": "LED anode (long leg) to row 10, cathode (short leg, flat side) to row 15. Reversed, it simply won't conduct."
+      },
+      "placements": [
+        { "partId": "led-red", "holes": ["A10", "A15"] }
+      ],
+      "expect": {
+        "explorer": "Still nothing! One more wire to go.",
+        "builder": "Still dark - the electricity has nowhere to go home to yet.",
+        "engineer": "Still open. The cathode has no return path to the negative terminal."
+      }
+    },
+    {
+      "instruction": {
+        "explorer": "Last wire! Now it lights up!",
+        "builder": "Run the last jumper from E15 to the black rail at the top. That completes the loop.",
+        "engineer": "Jumper row 15 to the negative bus to close the loop."
+      },
+      "placements": [{ "partId": "jumper-wires", "holes": ["E15", "-top"] }],
+      "expect": {
+        "explorer": "LIGHT! You did it!",
+        "builder": "The LED should be glowing now. If not, try turning the LED around.",
+        "engineer": "The LED should light. If it doesn't: check polarity first, then check that row 5 and row 10 really are separate nets."
+      }
+    }
+  ],
+  "bigIdea": {
+    "explorer": "Electricity goes in a circle. If the circle is broken, nothing happens.",
+    "builder": "Electricity only flows in a complete loop, and it always needs a brake - a resistor - or delicate parts burn out.",
+    "engineer": "Current is the same everywhere in a series loop. The resistor, not the LED, is what sets that current."
+  },
+  "goFurther": [
+    {
+      "explorer": "Try the green light instead!",
+      "builder": "Swap in the green LED. Is it brighter or dimmer than the red one?",
+      "engineer": "Swap to the green LED. Its higher Vf means less voltage across the resistor, so less current. Predict the change, then check it."
+    },
+    {
+      "explorer": "Try the bigger brake. Is it dimmer?",
+      "builder": "Swap the 330Ω for the 1kΩ resistor. What happens to the brightness?",
+      "engineer": "Swap to 1kΩ. Current drops to about 7mA. Is the brightness drop proportional? (It isn't - your eye is logarithmic.)"
+    }
+  ]
+}

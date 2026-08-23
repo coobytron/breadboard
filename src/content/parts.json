@@ -1,0 +1,297 @@
+[
+  {
+    "id": "breadboard",
+    "name": "Breadboard",
+    "category": "wiring",
+    "blurb": {
+      "explorer": "The white board with lots of little holes.",
+      "builder": "A board full of holes that grip wires. Holes in the same little row are already joined together underneath.",
+      "engineer": "Solderless prototyping board. Columns A-E and F-J of each row are connected internally; the centre channel separates them. The long side rails are the power buses."
+    },
+    "icon": "⬜",
+    "pins": 0,
+    "pinNames": [],
+    "fragile": false,
+    "hazards": []
+  },
+  {
+    "id": "jumper-wires",
+    "name": "Jumper wires",
+    "category": "wiring",
+    "blurb": {
+      "explorer": "Bendy wires that carry the zap.",
+      "builder": "Wires that carry electricity from one hole to another.",
+      "engineer": "Insulated 22AWG links. Colour is convention only: red for positive, black for ground."
+    },
+    "icon": "〰️",
+    "pins": 2,
+    "pinNames": ["end-a", "end-b"],
+    "fragile": false,
+    "hazards": ["sharp"]
+  },
+  {
+    "id": "alligator-clips",
+    "name": "Alligator clip leads",
+    "category": "wiring",
+    "blurb": {
+      "explorer": "Wires with little teeth that bite.",
+      "builder": "Clip-on wires. These are how you connect the breadboard to a lemon.",
+      "engineer": "Croc-clip test leads. The bridge between breadboard holes and anything that isn't a component - fruit, nails, foil."
+    },
+    "icon": "🔗",
+    "pins": 2,
+    "pinNames": ["clip-a", "clip-b"],
+    "fragile": false,
+    "hazards": []
+  },
+  {
+    "id": "battery-9v",
+    "name": "9V battery + snap",
+    "category": "power",
+    "blurb": {
+      "explorer": "The thing that pushes the zap around.",
+      "builder": "The pump that pushes electricity around the loop. Red wire is the push side, black is the return.",
+      "engineer": "9V DC source. Internal resistance is low enough that a direct short gets hot quickly - always include a limiting resistor."
+    },
+    "icon": "🔋",
+    "pins": 2,
+    "pinNames": ["positive", "negative"],
+    "fragile": false,
+    "electrical": { "forwardVoltage": 9 },
+    "hazards": ["battery-short"]
+  },
+  {
+    "id": "battery-aa-holder",
+    "name": "4 x AA battery holder",
+    "category": "power",
+    "blurb": {
+      "explorer": "Four fat batteries in a box.",
+      "builder": "Gives a gentler push than a 9V battery, so it's kinder to LEDs.",
+      "engineer": "6V pack. Lower voltage means a smaller limiting resistor and more margin before an LED cooks."
+    },
+    "icon": "🔋",
+    "pins": 2,
+    "pinNames": ["positive", "negative"],
+    "fragile": false,
+    "electrical": { "forwardVoltage": 6 },
+    "hazards": ["battery-short"]
+  },
+  {
+    "id": "led-red",
+    "name": "Red LED",
+    "category": "output",
+    "blurb": {
+      "explorer": "A tiny light!",
+      "builder": "A light that only works one way round. The long leg goes to the push side.",
+      "engineer": "Light-emitting diode. Vf about 2.0V, 20mA max. Long leg is the anode (+), short leg and the flat spot are the cathode (-). Needs a series resistor."
+    },
+    "icon": "🔴",
+    "pins": 2,
+    "pinNames": ["anode", "cathode"],
+    "fragile": true,
+    "electrical": { "forwardVoltage": 2.0, "maxCurrentMa": 20 },
+    "hazards": ["small-parts"]
+  },
+  {
+    "id": "led-green",
+    "name": "Green LED",
+    "category": "output",
+    "blurb": {
+      "explorer": "A tiny green light!",
+      "builder": "Like the red light, but green - and it needs a slightly bigger push.",
+      "engineer": "Vf about 2.1V, 20mA max. Same polarity rules as the red LED."
+    },
+    "icon": "🟢",
+    "pins": 2,
+    "pinNames": ["anode", "cathode"],
+    "fragile": true,
+    "electrical": { "forwardVoltage": 2.1, "maxCurrentMa": 20 },
+    "hazards": ["small-parts"]
+  },
+  {
+    "id": "pushbutton",
+    "name": "Pushbutton",
+    "category": "input",
+    "blurb": {
+      "explorer": "Press it to make things happen!",
+      "builder": "A gate for electricity. Pressed = open, let go = shut.",
+      "engineer": "Momentary SPST tactile switch. The four legs are two pairs; the pairs are always connected, and pressing joins the pairs. Straddle the centre channel."
+    },
+    "icon": "🔘",
+    "pins": 4,
+    "pinNames": ["1a", "1b", "2a", "2b"],
+    "fragile": false,
+    "hazards": ["small-parts"]
+  },
+  {
+    "id": "npn-transistor",
+    "name": "NPN transistor (2N3904 / 2N2222)",
+    "category": "active",
+    "blurb": {
+      "explorer": "A tiny helper with three legs.",
+      "builder": "A magic tap. A tiny trickle into the middle leg lets a big flow through the other two.",
+      "engineer": "NPN BJT. A small base current controls a much larger collector current - hFE is roughly 100. Flat face towards you: legs are usually E, B, C. Check your part number."
+    },
+    "icon": "🔺",
+    "pins": 3,
+    "pinNames": ["collector", "base", "emitter"],
+    "fragile": true,
+    "electrical": { "gain": 100 },
+    "hazards": ["small-parts", "hot-part"]
+  },
+  {
+    "id": "laser-module",
+    "name": "Laser module",
+    "category": "output",
+    "blurb": {
+      "explorer": "Makes a red dot. Only with a grown-up!",
+      "builder": "A very bright, very thin beam of light. Adults only, and it always points at the wall.",
+      "engineer": "650nm diode laser module, typically 3-5V with a built-in driver resistor. If yours is a bare diode, it MUST have current limiting or it dies instantly."
+    },
+    "icon": "🔦",
+    "pins": 2,
+    "pinNames": ["positive", "negative"],
+    "fragile": true,
+    "electrical": { "forwardVoltage": 3.0, "maxCurrentMa": 30 },
+    "hazards": ["laser-eye"]
+  },
+  {
+    "id": "resistor-220",
+    "name": "220Ω resistor",
+    "category": "passive",
+    "blurb": {
+      "explorer": "A little stripey brake.",
+      "builder": "Slows the electricity down so the light doesn't burn out.",
+      "engineer": "220 ohms. Colour bands: red-red-brown. Pairs with a 6V supply and a red LED for about 18mA."
+    },
+    "icon": "🟫",
+    "pins": 2,
+    "pinNames": ["end-a", "end-b"],
+    "fragile": false,
+    "electrical": { "resistanceOhms": 220 },
+    "hazards": ["hot-part", "small-parts"]
+  },
+  {
+    "id": "resistor-330",
+    "name": "330Ω resistor",
+    "category": "passive",
+    "blurb": {
+      "explorer": "A little stripey brake.",
+      "builder": "The everyday brake for LEDs. Use this one if you're not sure.",
+      "engineer": "330 ohms. Colour bands: orange-orange-brown. With a 9V supply and a red LED this gives about 21mA - close enough."
+    },
+    "icon": "🟫",
+    "pins": 2,
+    "pinNames": ["end-a", "end-b"],
+    "fragile": false,
+    "electrical": { "resistanceOhms": 330 },
+    "hazards": ["hot-part", "small-parts"]
+  },
+  {
+    "id": "resistor-1k",
+    "name": "1kΩ resistor",
+    "category": "passive",
+    "blurb": {
+      "explorer": "A bigger stripey brake.",
+      "builder": "A stronger brake. Makes the light dimmer but safer.",
+      "engineer": "1000 ohms. Colour bands: brown-black-red. Also the standard base resistor for switching a transistor."
+    },
+    "icon": "🟫",
+    "pins": 2,
+    "pinNames": ["end-a", "end-b"],
+    "fragile": false,
+    "electrical": { "resistanceOhms": 1000 },
+    "hazards": ["small-parts"]
+  },
+  {
+    "id": "resistor-1m",
+    "name": "1MΩ resistor",
+    "category": "passive",
+    "blurb": {
+      "explorer": "A very very strong brake.",
+      "builder": "Such a strong brake that almost nothing gets through. We use it for the fruit experiments.",
+      "engineer": "1,000,000 ohms. Colour bands: brown-black-green. Used as the pull-down on the transistor base so the touch switch doesn't float on."
+    },
+    "icon": "🟫",
+    "pins": 2,
+    "pinNames": ["end-a", "end-b"],
+    "fragile": false,
+    "electrical": { "resistanceOhms": 1000000 },
+    "hazards": ["small-parts"]
+  },
+  {
+    "id": "galvanized-nail",
+    "name": "Galvanized nail (zinc)",
+    "category": "passive",
+    "blurb": {
+      "explorer": "A silver nail for the lemon.",
+      "builder": "The silver electrode. Zinc is the metal that gives its bits away.",
+      "engineer": "Zinc-coated steel. In the fruit cell the zinc oxidises - this is the negative electrode."
+    },
+    "icon": "📌",
+    "pins": 1,
+    "pinNames": ["lead"],
+    "fragile": false,
+    "hazards": ["sharp", "do-not-eat"]
+  },
+  {
+    "id": "copper-wire",
+    "name": "Bare copper wire",
+    "category": "passive",
+    "blurb": {
+      "explorer": "An orange-brown wire for the lemon.",
+      "builder": "The copper electrode. Use real bare copper wire, not a penny - modern pennies are only copper-coloured on the outside.",
+      "engineer": "Bare copper strip or heavy wire, positive electrode of the fruit cell. Post-1982 US pennies are zinc-cored, so they make a poor copper electrode."
+    },
+    "icon": "🟠",
+    "pins": 1,
+    "pinNames": ["lead"],
+    "fragile": false,
+    "hazards": ["sharp", "do-not-eat"]
+  },
+  {
+    "id": "multimeter",
+    "name": "Multimeter",
+    "category": "tool",
+    "blurb": {
+      "explorer": "A machine that shows numbers.",
+      "builder": "Measures how hard the electricity is pushing (volts) and how hard something fights back (ohms).",
+      "engineer": "DMM. Use DC volts for the fruit cell, and resistance mode with a fixed 2cm probe gap for the conductivity leaderboard."
+    },
+    "icon": "📟",
+    "pins": 2,
+    "pinNames": ["probe-red", "probe-black"],
+    "fragile": false,
+    "hazards": []
+  },
+  {
+    "id": "lemon",
+    "name": "Lemon",
+    "category": "organic",
+    "blurb": {
+      "explorer": "A yellow squishy battery!",
+      "builder": "Sour fruit. The juice is full of acid, which is what lets electricity move through it.",
+      "engineer": "Citric acid electrolyte. The most reliable fruit cell - roughly 0.9V open-circuit with zinc and copper."
+    },
+    "icon": "🍋",
+    "pins": 2,
+    "pinNames": ["electrode-a", "electrode-b"],
+    "fragile": false,
+    "hazards": ["do-not-eat"]
+  },
+  {
+    "id": "potato",
+    "name": "Potato",
+    "category": "organic",
+    "blurb": {
+      "explorer": "A lumpy brown battery!",
+      "builder": "Works like the lemon but not as strongly. Cooking it first makes it work better!",
+      "engineer": "Phosphoric acid electrolyte, higher internal resistance than a lemon. Boiling breaks down cell walls and measurably improves output."
+    },
+    "icon": "🥔",
+    "pins": 2,
+    "pinNames": ["electrode-a", "electrode-b"],
+    "fragile": false,
+    "hazards": ["do-not-eat"]
+  }
+]

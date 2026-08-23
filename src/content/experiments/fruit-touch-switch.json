@@ -1,0 +1,143 @@
+{
+  "id": "fruit-touch-switch",
+  "title": "The Magic Fruit Switch",
+  "hook": {
+    "explorer": "Touch the apple and the light turns on!",
+    "builder": "Make a light that switches on when you touch a piece of fruit - no button needed.",
+    "engineer": "Build a Darlington pair touch switch and use fruit as the base-current path."
+  },
+  "track": "fruit",
+  "order": 2,
+  "requires": [
+    { "partId": "breadboard", "quantity": 1 },
+    { "partId": "battery-9v", "quantity": 1 },
+    { "partId": "npn-transistor", "quantity": 2 },
+    { "partId": "led-red", "quantity": 1 },
+    { "partId": "resistor-330", "quantity": 1 },
+    { "partId": "resistor-1m", "quantity": 1 },
+    { "partId": "lemon", "quantity": 1 },
+    { "partId": "galvanized-nail", "quantity": 2 },
+    { "partId": "alligator-clips", "quantity": 2 },
+    { "partId": "jumper-wires", "quantity": 4 }
+  ],
+  "hazards": ["do-not-eat", "sharp", "small-parts", "hot-part"],
+  "minLevel": "builder",
+  "estimatedMinutes": 30,
+  "steps": [
+    {
+      "instruction": {
+        "explorer": "Put the first three-legged helper in the board.",
+        "builder": "Push the first transistor in with its flat side facing you. Its three legs go into rows 20, 21 and 22.",
+        "engineer": "Insert Q1 with the flat face towards you: collector to row 20, base to row 21, emitter to row 22. Check your part's pinout - 2N3904 and 2N2222 differ."
+      },
+      "placements": [
+        { "partId": "npn-transistor", "holes": ["E20", "E21", "E22"], "label": "Q1" }
+      ]
+    },
+    {
+      "instruction": {
+        "explorer": "Now the second helper, just below.",
+        "builder": "Push the second transistor in the same way, into rows 24, 25 and 26.",
+        "engineer": "Insert Q2 identically: collector row 24, base row 25, emitter row 26."
+      },
+      "placements": [
+        { "partId": "npn-transistor", "holes": ["E24", "E25", "E26"], "label": "Q2" }
+      ]
+    },
+    {
+      "instruction": {
+        "explorer": "Join the two helpers together with wires.",
+        "builder": "Run a jumper from A22 to A25, and another from A20 to A24. Now the two transistors work as a team.",
+        "engineer": "Wire the Darlington: Q1 emitter (row 22) to Q2 base (row 25), and tie the collectors together (row 20 to row 24)."
+      },
+      "explanation": {
+        "explorer": "Two helpers together are MUCH stronger than one.",
+        "builder": "One transistor makes a tiny trickle about a hundred times bigger. Two in a row makes it about ten thousand times bigger. That's why fruit is enough to switch this on.",
+        "engineer": "A Darlington multiplies the gains: roughly 100 x 100 = 10,000. That is exactly why a base current of tens of microamps through fruit can switch tens of milliamps through the LED."
+      },
+      "placements": [
+        { "partId": "jumper-wires", "holes": ["A22", "A25"] },
+        { "partId": "jumper-wires", "holes": ["A20", "A24"] }
+      ]
+    },
+    {
+      "instruction": {
+        "explorer": "Add the strongest brake from the middle leg down to black.",
+        "builder": "Put the 1MΩ resistor from B21 to the black rail. This stops the light flickering on by itself.",
+        "engineer": "Fit the 1MΩ base pull-down from Q1 base (row 21) to ground. Without it the base floats and the Darlington's huge gain makes it switch on at random."
+      },
+      "placements": [
+        { "partId": "resistor-1m", "holes": ["B21", "-top"], "label": "1MΩ" }
+      ]
+    },
+    {
+      "instruction": {
+        "explorer": "Now the light and its little brake.",
+        "builder": "Put the LED's long leg in B26 and its short leg in B29. Then put the 330Ω resistor from E29 to the black rail.",
+        "engineer": "LED anode to Q2 emitter (row 26), cathode to row 29, then the 330Ω limiting resistor from row 29 to ground. Emitter follower - the LED sits in the emitter leg."
+      },
+      "placements": [
+        { "partId": "led-red", "holes": ["B26", "B29"] },
+        { "partId": "resistor-330", "holes": ["E29", "-top"], "label": "330Ω" }
+      ]
+    },
+    {
+      "instruction": {
+        "explorer": "Connect the battery. The light should be OFF.",
+        "builder": "Connect the battery, and run a jumper from the red rail to C20. The LED should be off. If it's on, check the 1MΩ resistor.",
+        "engineer": "Power up and tie the collectors to +9V. The LED should be dark. If it glows, the base pull-down is missing or in the wrong net."
+      },
+      "placements": [
+        { "partId": "jumper-wires", "holes": ["+top", "C20"] }
+      ],
+      "expect": {
+        "explorer": "Dark. Good!",
+        "builder": "Dark - that's exactly right.",
+        "engineer": "Quiescent state, base held near ground."
+      }
+    },
+    {
+      "instruction": {
+        "explorer": "Push two nails in the fruit. Clip a wire to each.",
+        "builder": "Push two nails into the lemon about 3cm apart. Clip one to the red rail, and clip the other to C21 - the middle leg of the first transistor.",
+        "engineer": "Insert two electrodes into the fruit. Clip one to +9V and the other to Q1's base net (row 21). The fruit is now the base resistor - tens of kilohms of it."
+      },
+      "placements": [],
+      "expect": {
+        "explorer": "THE LIGHT COMES ON! The fruit is the switch!",
+        "builder": "The LED lights up! The lemon is letting just enough electricity through to the middle leg to switch the whole thing on.",
+        "engineer": "The LED should light. The fruit passes tens of microamps into the base; the Darlington multiplies that into milliamps through the LED."
+      }
+    },
+    {
+      "instruction": {
+        "explorer": "Now pull a nail out and touch it with your finger!",
+        "builder": "Take the clip off the lemon and just hold the bare wire between your fingers while touching the other one. You are now the switch!",
+        "engineer": "Replace the fruit with your own skin. Dry skin is megohms, which is right at the edge of what this circuit can switch - lick your finger and the LED brightens noticeably."
+      },
+      "placements": [],
+      "expect": {
+        "explorer": "You are part of the circuit!",
+        "builder": "It works with YOU in the circuit. Try a damp finger - much brighter!",
+        "engineer": "Brightness tracks skin resistance, which is a direct readout of the Darlington's current gain."
+      }
+    }
+  ],
+  "bigIdea": {
+    "explorer": "A tiny bit of electricity can control a big bit of electricity.",
+    "builder": "A transistor is an amplifier: a trickle too small to do anything on its own can control a flow big enough to light a lamp. Two transistors together are so sensitive that a piece of fruit is enough to trigger them.",
+    "engineer": "This is current gain. The fruit's resistance is far too high to light an LED directly - as the lemon battery experiment proved - but a Darlington's gain of about 10,000 turns those microamps into milliamps. Amplification is the whole reason transistors changed the world."
+  },
+  "goFurther": [
+    {
+      "explorer": "Try other things instead of the fruit!",
+      "builder": "Swap the lemon for a banana, a pickle, a wet sponge, a chain of people holding hands. What works? What doesn't?",
+      "engineer": "Substitute different organics and rank them by resulting LED brightness - a working transconductance measurement. Log them in the Conductivity Leaderboard."
+    },
+    {
+      "explorer": "How many people can hold hands and still work?",
+      "builder": "Get the whole family holding hands in a line, with the people on the ends holding the wires. How many people before the light goes out?",
+      "engineer": "Series-connect people and find where the total resistance exceeds what the Darlington can work with. Each person adds roughly a megohm of dry skin."
+    }
+  ]
+}
