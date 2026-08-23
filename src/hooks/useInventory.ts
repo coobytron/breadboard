@@ -4,6 +4,9 @@ import { hasEnough, setQuantity as setInventoryQuantity } from '../lib/inventory
 
 const STORAGE_KEY = 'breadboard-buddy:inventory';
 
+let sharedInventory: InventoryItem[] | null = null;
+const subscribers = new Set<(inventory: InventoryItem[]) => void>();
+
 function isInventoryItem(value: unknown): value is InventoryItem {
   if (typeof value !== 'object' || value === null) return false;
   const item = value as Record<string, unknown>;
@@ -23,19 +26,46 @@ function readInventory(): InventoryItem[] {
   }
 }
 
-export function useInventory() {
-  const [inventory, setInventory] = useState<InventoryItem[]>(readInventory);
+function currentInventory(): InventoryItem[] {
+  if (sharedInventory === null) sharedInventory = readInventory();
+  return sharedInventory;
+}
 
-  useEffect(() => {
+function publish(next: InventoryItem[]) {
+  sharedInventory = next;
+
+  if (typeof window !== 'undefined') {
     try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(inventory));
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
     } catch {
       // Storage can be unavailable in private/restricted browser modes; keep the in-memory state usable.
     }
-  }, [inventory]);
+  }
+
+  for (const subscriber of subscribers) subscriber(next);
+}
+
+export function useInventory() {
+  const [inventory, setInventory] = useState<InventoryItem[]>(currentInventory);
+
+  useEffect(() => {
+    subscribers.add(setInventory);
+
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key !== STORAGE_KEY) return;
+      sharedInventory = readInventory();
+      for (const subscriber of subscribers) subscriber(sharedInventory);
+    };
+
+    window.addEventListener('storage', handleStorage);
+    return () => {
+      subscribers.delete(setInventory);
+      window.removeEventListener('storage', handleStorage);
+    };
+  }, []);
 
   const setQuantity = (partId: string, quantity: number) => {
-    setInventory((current) => setInventoryQuantity(current, partId, quantity));
+    publish(setInventoryQuantity(currentInventory(), partId, quantity));
   };
 
   const has = (required: InventoryItem[]) => hasEnough(inventory, required);
