@@ -20,7 +20,8 @@ export function earnedBadges(
       case 'organics-measured':
         return measuredOrganicIds.size >= badge.criteria.count;
       case 'complete-track': {
-        const trackExperiments = experiments.filter((experiment) => experiment.track === badge.criteria.track);
+        const track = badge.criteria.track;
+        const trackExperiments = experiments.filter((experiment) => experiment.track === track);
         return trackExperiments.length > 0 && trackExperiments.every((experiment) => completedExperimentIds.has(experiment.id));
       }
       default:
