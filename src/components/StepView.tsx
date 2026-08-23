@@ -1,22 +1,27 @@
 import { useState } from 'react';
 import { partsById } from '../content';
-import type { ExperimentStep, ReadingLevel } from '../types';
+import type { ExperimentStep, Placement, ReadingLevel } from '../types';
+import { BreadboardDiagram } from './BreadboardDiagram';
 
 interface StepViewProps {
   step: ExperimentStep;
   level: ReadingLevel;
   stepNumber: number;
   stepCount: number;
+  placements?: Placement[];
 }
 
-export function StepView({ step, level, stepNumber, stepCount }: StepViewProps) {
+export function StepView({ step, level, stepNumber, stepCount, placements = step.placements }: StepViewProps) {
   const [showWhy, setShowWhy] = useState(false);
   const explanationOpen = level === 'engineer' || showWhy;
+  const highlightedHoles = step.placements.flatMap((placement) => placement.holes);
 
   return (
     <section className="card" aria-labelledby={`step-${stepNumber}-title`}>
       <p className="sub">Step {stepNumber} of {stepCount}</p>
       <h2 id={`step-${stepNumber}-title`}>{step.instruction[level]}</h2>
+
+      <BreadboardDiagram placements={placements} highlight={highlightedHoles} />
 
       {step.placements.length > 0 && (
         <div>
