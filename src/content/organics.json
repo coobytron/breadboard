@@ -1,0 +1,158 @@
+[
+  {
+    "id": "lemon",
+    "name": "Lemon",
+    "emoji": "🍋",
+    "kind": "fruit",
+    "batteryVoltage": { "min": 0.8, "max": 1.1, "unit": "V" },
+    "resistance": { "min": 10, "max": 150, "unit": "kohm" },
+    "why": {
+      "explorer": "Lemons are sour. Sour helps the zap move!",
+      "builder": "Lemon juice is full of acid. Acid is packed with tiny charged bits that can carry electricity from one nail to the other.",
+      "engineer": "Citric acid dissociates into mobile ions, so the flesh conducts. Zinc gives up electrons more readily than copper, and that difference is the cell voltage."
+    },
+    "guessPrompt": {
+      "explorer": "Will the lemon make the light glow?",
+      "builder": "Sour things usually conduct well. Guess: strong, medium, or weak?",
+      "engineer": "Predict the open-circuit voltage before you measure. Then predict what happens to current."
+    }
+  },
+  {
+    "id": "potato",
+    "name": "Potato",
+    "emoji": "🥔",
+    "kind": "vegetable",
+    "batteryVoltage": { "min": 0.7, "max": 0.9, "unit": "V" },
+    "resistance": { "min": 20, "max": 300, "unit": "kohm" },
+    "why": {
+      "explorer": "Potatoes work too, but not as well.",
+      "builder": "A potato is not sour, but it still has juice with charged bits in it. It just fights back harder than a lemon.",
+      "engineer": "Phosphoric acid electrolyte with a starchy matrix - higher internal resistance than citrus. Boiling the potato first ruptures cell walls and measurably improves output."
+    },
+    "guessPrompt": {
+      "explorer": "Potato or lemon - which is stronger?",
+      "builder": "Do you think a potato beats a lemon? Guess first, then test.",
+      "engineer": "Predict whether the potato's higher internal resistance shows up more in voltage or in current."
+    }
+  },
+  {
+    "id": "apple",
+    "name": "Apple",
+    "emoji": "🍎",
+    "kind": "fruit",
+    "batteryVoltage": { "min": 0.4, "max": 0.8, "unit": "V" },
+    "resistance": { "min": 50, "max": 500, "unit": "kohm" },
+    "why": {
+      "explorer": "Apples are only a little bit sour.",
+      "builder": "An apple is sweet, not sour, so it has fewer charged bits than a lemon. It's a weaker battery but still conducts.",
+      "engineer": "Malic acid at lower concentration than citrus. Good middle-of-the-table result for the leaderboard."
+    },
+    "guessPrompt": {
+      "explorer": "Do you think the apple will work?",
+      "builder": "Sweet instead of sour. Better or worse than the lemon?",
+      "engineer": "Rank apple against lemon and potato before measuring."
+    }
+  },
+  {
+    "id": "pickle",
+    "name": "Pickle",
+    "emoji": "🥒",
+    "kind": "vegetable",
+    "resistance": { "min": 2, "max": 30, "unit": "kohm" },
+    "why": {
+      "explorer": "Pickles are super salty. Salt loves electricity!",
+      "builder": "A pickle has been sitting in salty water for weeks, so it is stuffed with salt. Salt is brilliant at carrying electricity - this is usually the leaderboard winner.",
+      "engineer": "Brine-saturated, so it has by far the highest free-ion concentration on the table. Expect it to be an order of magnitude less resistive than fresh fruit."
+    },
+    "guessPrompt": {
+      "explorer": "Salty pickle! Will it win?",
+      "builder": "This one has a secret weapon. Can you guess what it is?",
+      "engineer": "Predict the pickle's resistance relative to the lemon. Justify it from ion concentration."
+    }
+  },
+  {
+    "id": "salt-water",
+    "name": "Salt water",
+    "emoji": "🧂",
+    "kind": "liquid",
+    "resistance": { "min": 1, "max": 20, "unit": "kohm" },
+    "why": {
+      "explorer": "Salty water is a super highway for the zap.",
+      "builder": "Plain water is bad at carrying electricity. Stir salt into it and it becomes great at it. The salt is doing all the work, not the water.",
+      "engineer": "NaCl dissociates into Na+ and Cl- ions. Conductivity scales with concentration - this is the control that proves it is the ions conducting, not the water."
+    },
+    "guessPrompt": {
+      "explorer": "Salty water or plain water - which is better?",
+      "builder": "Test plain water first, then stir in salt and test again. What changed?",
+      "engineer": "Measure at three salt concentrations and see whether resistance falls linearly."
+    }
+  },
+  {
+    "id": "tap-water",
+    "name": "Tap water",
+    "emoji": "💧",
+    "kind": "liquid",
+    "resistance": { "min": 100, "max": 2000, "unit": "kohm" },
+    "why": {
+      "explorer": "Plain water is not very good at all!",
+      "builder": "Surprise! Pure water is actually a bad carrier of electricity. It only works when something is dissolved in it.",
+      "engineer": "Deionised water is near-insulating. Tap water conducts only through dissolved mineral ions, so readings vary a lot by region."
+    },
+    "guessPrompt": {
+      "explorer": "Is water good at electricity? Guess!",
+      "builder": "Most people guess wrong on this one. Write your guess down first.",
+      "engineer": "Predict tap water vs salt water, then explain the gap."
+    }
+  },
+  {
+    "id": "banana",
+    "name": "Banana",
+    "emoji": "🍌",
+    "kind": "fruit",
+    "resistance": { "min": 50, "max": 800, "unit": "kohm" },
+    "why": {
+      "explorer": "Squishy banana. Not a very good one!",
+      "builder": "Bananas are mostly starch and sugar, not acid, so not much electricity gets through.",
+      "engineer": "Low free-ion content relative to citrus. Interesting variable: a very ripe banana measures differently from a green one."
+    },
+    "guessPrompt": {
+      "explorer": "Banana time! Good or bad?",
+      "builder": "Try a ripe one and a green one. Do they score the same?",
+      "engineer": "Test ripeness as a variable and record both."
+    }
+  },
+  {
+    "id": "celery",
+    "name": "Celery",
+    "emoji": "🥬",
+    "kind": "vegetable",
+    "resistance": { "min": 30, "max": 500, "unit": "kohm" },
+    "why": {
+      "explorer": "Crunchy celery is full of water.",
+      "builder": "Celery is mostly water with minerals in it, so it's an okay middle-of-the-pack conductor.",
+      "engineer": "High water content with dissolved salts. Try probing along the stalk versus across it - the fibres make it directional."
+    },
+    "guessPrompt": {
+      "explorer": "Crunchy! Will it work?",
+      "builder": "Try poking along the stringy bits, then across them. Any difference?",
+      "engineer": "Test for anisotropy: measure along the vascular bundles and across them."
+    }
+  },
+  {
+    "id": "finger",
+    "name": "Your finger",
+    "emoji": "👆",
+    "kind": "body",
+    "resistance": { "min": 500, "max": 5000, "unit": "kohm" },
+    "why": {
+      "explorer": "You are a little bit zappy too!",
+      "builder": "You are mostly salty water, so you conduct - but your dry skin is a good blocker. Lick your finger and you conduct much better.",
+      "engineer": "Dry skin is the dominant resistance, typically megohms. Moisture drops it sharply, which is exactly why the transistor touch switch responds to a damp finger."
+    },
+    "guessPrompt": {
+      "explorer": "Are YOU part of the circuit?",
+      "builder": "Measure with a dry finger, then a damp one. Big difference?",
+      "engineer": "Compare dry vs damp skin and explain which layer dominates the measurement."
+    }
+  }
+]

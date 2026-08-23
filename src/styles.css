@@ -1,0 +1,65 @@
+/* Design tokens. Big touch targets and high contrast: this gets used on a tablet,
+   in a garage, by a five-year-old with sticky fingers. */
+:root {
+  --bg: #10131a;
+  --surface: #1a1f2b;
+  --surface-2: #232a38;
+  --text: #f2f5fa;
+  --muted: #9aa6bd;
+  --accent: #ffc93c;
+  --ok: #4ade80;
+  --warn: #fb923c;
+  --danger: #f87171;
+  --radius: 14px;
+  --tap: 48px; /* minimum touch target */
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+}
+
+.wrap { max-width: 900px; margin: 0 auto; padding: 1.25rem; }
+
+h1 { font-size: 1.75rem; margin: 0 0 .25rem; }
+.sub { color: var(--muted); margin: 0 0 1.5rem; }
+
+.levels { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.levels button {
+  min-height: var(--tap);
+  padding: .6rem 1rem;
+  border-radius: var(--radius);
+  border: 2px solid var(--surface-2);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1rem;
+  cursor: pointer;
+}
+.levels button[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: var(--surface-2);
+  font-weight: 600;
+}
+
+.track { margin: 2rem 0 .75rem; font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--surface-2);
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+  margin-bottom: .75rem;
+}
+.card h3 { margin: 0 0 .35rem; font-size: 1.15rem; }
+.card p { margin: 0 0 .6rem; color: var(--muted); }
+
+.meta { display: flex; gap: .5rem; flex-wrap: wrap; font-size: .8rem; }
+.pill { background: var(--surface-2); padding: .2rem .6rem; border-radius: 999px; color: var(--muted); }
+.pill.warn { color: var(--warn); }
+.pill.danger { color: var(--danger); }

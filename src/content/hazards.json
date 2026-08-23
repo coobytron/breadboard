@@ -1,0 +1,68 @@
+[
+  {
+    "id": "laser-eye",
+    "title": "The laser never points at a person",
+    "rule": {
+      "explorer": "Never look at the red dot. Point it at the wall.",
+      "builder": "Never shine the laser at eyes - yours, anyone's, or a pet's. Always aim it at a wall, below head height.",
+      "engineer": "Laser modules like this are Class 2/3R. The blink reflex is NOT reliable protection. Never aim at people, pets, vehicles or aircraft, never view the beam through a magnifier, telescope or camera lens, and always aim at a matte surface below eye level."
+    },
+    "severity": "gate",
+    "hiddenFrom": ["explorer"]
+  },
+  {
+    "id": "do-not-eat",
+    "title": "Science fruit is not snack fruit",
+    "rule": {
+      "explorer": "This fruit is for science. We do not eat it. Wash hands!",
+      "builder": "Once metal goes into the fruit, the fruit is science equipment, not food. Throw it away afterwards and wash your hands.",
+      "engineer": "Galvanized nails are zinc-coated and the copper electrode corrodes into the flesh. Both leach into the fruit. Bin it after the experiment and wash your hands."
+    },
+    "severity": "warn",
+    "hiddenFrom": []
+  },
+  {
+    "id": "battery-short",
+    "title": "Never wire + straight to -",
+    "rule": {
+      "explorer": "Never let the two battery wires touch.",
+      "builder": "If you connect the battery's + wire straight to its - wire, the battery gets hot fast. Always send the electricity through something first.",
+      "engineer": "A short circuit across the battery draws current limited only by internal resistance. A 9V alkaline will get hot; a lithium cell can vent. There must always be a resistive load in the loop."
+    },
+    "severity": "warn",
+    "hiddenFrom": []
+  },
+  {
+    "id": "hot-part",
+    "title": "Parts get hot when they're wired wrong",
+    "rule": {
+      "explorer": "If something feels hot, tell a grown-up.",
+      "builder": "Touch a resistor after a few minutes. Warm is fine. Too hot to touch means something is wrong - unplug the battery and check your wiring.",
+      "engineer": "P = I x V. A quarter-watt resistor dissipating more than 0.25W will scorch. If a part is too hot to hold, disconnect and recheck your resistor value."
+    },
+    "severity": "note",
+    "hiddenFrom": []
+  },
+  {
+    "id": "sharp",
+    "title": "Nails and wire ends are sharp",
+    "rule": {
+      "explorer": "A grown-up pushes the nail in.",
+      "builder": "Push nails into fruit slowly, away from your other hand. Cut wire ends are sharp too.",
+      "engineer": "Push electrodes in with the fruit resting on the table, never held in your palm. Freshly cut jumper ends are sharp enough to break skin."
+    },
+    "severity": "note",
+    "hiddenFrom": []
+  },
+  {
+    "id": "small-parts",
+    "title": "Small parts are not for mouths",
+    "rule": {
+      "explorer": "Parts stay on the table, never in your mouth.",
+      "builder": "LEDs, resistors and transistors are choking hazards for little kids. Keep them in the tray.",
+      "engineer": "Keep loose components in a closed tray when a toddler is in the room."
+    },
+    "severity": "note",
+    "hiddenFrom": []
+  }
+]
