@@ -4,7 +4,7 @@ import type { OrganicReading } from '../types';
 export type GuessStrength = 'strong' | 'medium' | 'weak';
 
 export interface ReadingWithGuess extends OrganicReading {
-  guess: GuessStrength;
+  guess?: GuessStrength;
 }
 
 type NewReading = Omit<ReadingWithGuess, 'id' | 'measuredAt'>;
@@ -23,7 +23,7 @@ function isStoredReading(value: unknown): value is ReadingWithGuess {
     typeof reading.organicId === 'string' &&
     typeof reading.measuredAt === 'string' &&
     (reading.method === 'multimeter' || reading.method === 'led-brightness') &&
-    isGuess(reading.guess)
+    (reading.guess === undefined || isGuess(reading.guess))
   );
 }
 
