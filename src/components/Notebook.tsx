@@ -1,6 +1,10 @@
+import { useEffect, useState } from 'react';
 import { experiments } from '../content';
 import { useNotebook } from '../hooks/useNotebook';
-import type { LabEntry, ReadingLevel } from '../types';
+import { deletePhoto, totalBytes } from '../lib/photo-store';
+import type { LabEntry, LeveledText, ReadingLevel } from '../types';
+import { PhotoCapture } from './PhotoCapture';
+import { PhotoStrip } from './PhotoStrip';
 
 interface NotebookProps {
   level: ReadingLevel;
@@ -11,6 +15,12 @@ const outcomeEmoji: Record<LabEntry['outcome'], string> = {
   partly: '🤔',
   'did-not-work': '❌',
   'in-progress': '⏳',
+};
+
+const STORAGE_PREFIX: LeveledText = {
+  explorer: 'Pictures on this device:',
+  builder: 'Photo storage on this device:',
+  engineer: 'IndexedDB photo storage:',
 };
 
 const dayFormatter = new Intl.DateTimeFormat(undefined, {
@@ -28,8 +38,15 @@ function dayKey(entry: LabEntry): string {
   return new Date(entry.startedAt).toISOString().slice(0, 10);
 }
 
+function formatBytes(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(bytes < 10 * 1024 ? 1 : 0)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
 export function Notebook({ level }: NotebookProps) {
-  const { entries, deleteEntry } = useNotebook();
+  const { entries, updateEntry, deleteEntry } = useNotebook();
+  const [photoBytes, setPhotoBytes] = useState(0);
   const experimentTitles = new Map(experiments.map((experiment) => [experiment.id, experiment.title]));
   const sorted = [...entries].sort((a, b) => b.startedAt.localeCompare(a.startedAt));
   const groups = new Map<string, LabEntry[]>();
@@ -38,6 +55,31 @@ export function Notebook({ level }: NotebookProps) {
     const key = dayKey(entry);
     groups.set(key, [...(groups.get(key) ?? []), entry]);
   }
+
+  const refreshPhotoBytes = async () => {
+    setPhotoBytes(await totalBytes());
+  };
+
+  useEffect(() => {
+    void refreshPhotoBytes();
+  }, [entries]);
+
+  const handlePhotoSaved = (entry: LabEntry, key: string) => {
+    updateEntry(entry.id, { photoKeys: [...entry.photoKeys, key] });
+    void refreshPhotoBytes();
+  };
+
+  const handlePhotoDelete = async (entry: LabEntry, key: string) => {
+    await deletePhoto(key);
+    updateEntry(entry.id, { photoKeys: entry.photoKeys.filter((candidate) => candidate !== key) });
+    await refreshPhotoBytes();
+  };
+
+  const handleEntryDelete = async (entry: LabEntry) => {
+    await Promise.all(entry.photoKeys.map((key) => deletePhoto(key)));
+    deleteEntry(entry.id);
+    await refreshPhotoBytes();
+  };
 
   return (
     <section className="notebook-print" aria-labelledby="notebook-title">
@@ -62,18 +104,27 @@ export function Notebook({ level }: NotebookProps) {
             <article className="card" key={entry.id}>
               <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
                 <span aria-hidden="true" style={{ fontSize: '1.5rem' }}>{outcomeEmoji[entry.outcome]}</span>
-                <div style={{ flex: 1 }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
                   <h4 style={{ margin: 0 }}>{experimentTitles.get(entry.experimentId) ?? entry.experimentId}</h4>
                   <p className="sub" style={{ marginBottom: '0.5rem' }}>
                     {timeFormatter.format(new Date(entry.startedAt))}
                     {entry.scientist ? ` · ${entry.scientist}` : ''}
                   </p>
                   {entry.notes && <p>{entry.notes}</p>}
+                  <PhotoStrip
+                    photoKeys={entry.photoKeys}
+                    level={level}
+                    onDelete={(keyToDelete) => void handlePhotoDelete(entry, keyToDelete)}
+                  />
+                  <PhotoCapture
+                    level={level}
+                    onSaved={(savedKey) => handlePhotoSaved(entry, savedKey)}
+                  />
                 </div>
                 <button
                   type="button"
                   className="no-print"
-                  onClick={() => deleteEntry(entry.id)}
+                  onClick={() => void handleEntryDelete(entry)}
                   aria-label={`Delete ${experimentTitles.get(entry.experimentId) ?? entry.experimentId} notebook entry`}
                 >
                   Delete
@@ -83,6 +134,10 @@ export function Notebook({ level }: NotebookProps) {
           ))}
         </section>
       ))}
+
+      <footer className="sub no-print" style={{ marginTop: '1rem' }} aria-live="polite">
+        {STORAGE_PREFIX[level]} {formatBytes(photoBytes)}
+      </footer>
     </section>
   );
 }
