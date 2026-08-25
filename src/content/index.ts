@@ -5,12 +5,14 @@
  * so adding a new experiment is literally just dropping a file into
  * src/content/experiments/ - no registry to update, nothing to wire up.
  */
-import type { Experiment, Hazard, Organic, Part } from '../types';
-import { experimentSchema, hazardSchema, organicSchema, partSchema } from './schemas';
+import type { Badge, Experiment, Hazard, Organic, Part } from '../types';
+import { badgeSchema, experimentSchema, hazardSchema, organicSchema, partSchema } from './schemas';
+import badgesRaw from './badges.json';
 import partsRaw from './parts.json';
 import hazardsRaw from './hazards.json';
 import organicsRaw from './organics.json';
 
+export const badges: Badge[] = badgesRaw.map((badge) => badgeSchema.parse(badge) as Badge);
 export const parts: Part[] = partsRaw.map((p) => partSchema.parse(p) as Part);
 export const hazards: Hazard[] = hazardsRaw.map((h) => hazardSchema.parse(h) as Hazard);
 export const organics: Organic[] = organicsRaw.map((o) => organicSchema.parse(o) as Organic);

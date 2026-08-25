@@ -63,3 +63,44 @@ h1 { font-size: 1.75rem; margin: 0 0 .25rem; }
 .pill { background: var(--surface-2); padding: .2rem .6rem; border-radius: 999px; color: var(--muted); }
 .pill.warn { color: var(--warn); }
 .pill.danger { color: var(--danger); }
+
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  .notebook-print,
+  .notebook-print * {
+    visibility: visible;
+  }
+
+  .notebook-print {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    padding: 0;
+  }
+
+  .notebook-print .card {
+    break-inside: avoid;
+    background: white;
+    color: black;
+    border: 1px solid #aaa;
+    box-shadow: none;
+  }
+
+  .notebook-print .card p,
+  .notebook-print .sub,
+  .notebook-print .track {
+    color: #333;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}

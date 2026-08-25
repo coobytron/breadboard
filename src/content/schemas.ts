@@ -4,7 +4,7 @@
  * Content lives in JSON so that new experiments can be added without touching app
  * code. These schemas are what stops a malformed experiment from white-screening the
  * app in front of a five-year-old: content.test.ts validates every file at test time,
- * so a bad paste fails `npm test` instead of failing in the garage.
+ * so a bad paste fails `npm test` instead of failing in the garage in front of the kids.
  */
 import { z } from 'zod';
 
@@ -113,4 +113,19 @@ export const organicSchema = z.object({
   resistance: expectedRangeSchema.optional(),
   why: leveledTextSchema,
   guessPrompt: leveledTextSchema,
+});
+
+export const badgeCriteriaSchema = z.discriminatedUnion('type', [
+  z.object({ type: z.literal('complete-experiment'), experimentId: z.string().min(1) }),
+  z.object({ type: z.literal('complete-track'), track: z.enum(['basics', 'transistor', 'laser', 'fruit']) }),
+  z.object({ type: z.literal('organics-measured'), count: z.number().int().min(1) }),
+  z.object({ type: z.literal('first-light') }),
+]);
+
+export const badgeSchema = z.object({
+  id: z.string().min(1),
+  name: z.string().min(1),
+  emoji: z.string().min(1),
+  description: leveledTextSchema,
+  criteria: badgeCriteriaSchema,
 });
